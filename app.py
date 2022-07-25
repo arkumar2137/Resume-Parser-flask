@@ -13,6 +13,10 @@ def candidates():
     }
     return render_template('candidates.html', context=context)
 
+@app.route('/upload')
+def upload():
+    return "Successfully Uploaded"
+
 @app.route('/jobs')
 def jobs():
     return render_template('jobs.html')
