@@ -14,6 +14,12 @@ api = Api(app)
 def index():
     return render_template('index.html')
 
+@app.route('/uploads', methods=['POST'])
+def uploads():
+    user = request.form
+    filename = user['resume_file']
+    print(filename)
+    return render_template('uploadMessage.html')
 
 @app.route('/candidates')
 def candidates():
