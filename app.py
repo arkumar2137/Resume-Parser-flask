@@ -1,5 +1,6 @@
 from flask import Flask, render_template,jsonify, request
 from flask_restful import Resource,Api
+from flask_cors import CORS
 
 import pandas as pd
 import Extract_data
@@ -8,6 +9,7 @@ import itertools
 import rank
 
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 
 @app.route('/')
@@ -17,16 +19,32 @@ def index():
 @app.route('/uploads', methods=['POST'])
 def uploads():
     user = request.form
-    filename = user['resume_file']
+    docfile = request.files['resume_file']
+    filename = secure_filename(docfile.filename)
+    print(user)
+    print('================================')
     print(filename)
     return render_template('uploadMessage.html')
 
 @app.route('/candidates')
 def candidates():
-    context = {
-        "name": "Ashish"
-    }
-    return render_template('candidates.html', context=context)
+    d = [{      
+            "Company Name": "Scaledge", 
+            "Experience": "3 years", 
+            "Qualification": "M.Tech", 
+            "Skills": "Python,ML,DL,NLP",
+            "Candidates Name" : "Ashish"
+        },
+        {      
+            "Company Name": "Scaledge", 
+            "Experience": "3 years", 
+            "Qualification": "M.Tech", 
+            "Skills": "Python,ML,DL,NLP",
+            "Candidates Name" : "Ashish"
+        }]
+    return jsonify(d)
+    #context = {"name": "Ashish"}
+    #return render_template('candidates.html', context=context)
 
 """
 @app.route('/jobs')
@@ -87,6 +105,11 @@ class ranking(Resource):
             output.append(dict(row))
         return jsonify(output)
         #return render_template('resume.html')
+
+@app.route('/faker')
+def faker():
+    return "String coming from faker endpoint"
+
 
 
 api.add_resource(extract_R,'/upload') 
