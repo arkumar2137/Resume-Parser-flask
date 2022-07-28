@@ -2,14 +2,15 @@
 {% block content %}
 <div class="container-fluid">   
     <h1>Candidates Page</h1>
-    <!--{{context.name}} -->
-    <form action="/upload">
-        <input type="file" name="document" />
-        <button type="submit">Submit</button>
-    </form>
+    <div>
+      <form action="/uploads" enctype="multipart/form-data" method="post">
+        <input type="file" name="resume_file"/><br>
+        <button type="submit">Save</button>
+      </form>
+    </div>
 </div>
 
-<div>
+<!-- <div>
     <table class="table table-dark">
         <thead>
           <tr>
@@ -40,6 +41,6 @@
           </tr>
         </tbody>
     </table>
-</div>
+</div> -->
 
 {% endblock %}
